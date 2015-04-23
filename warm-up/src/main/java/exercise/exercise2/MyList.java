@@ -1,6 +1,9 @@
 package exercise.exercise2;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 
 /**
  * Created by Radu.Hoaghe on 20.04.2015.
@@ -44,6 +47,23 @@ public class MyList<Integer> extends ArrayList<Integer> {
         differentElements = 0;
     }
 
+    @Override
+    public boolean add(Integer integer) {
+       if(!this.contains(integer)){
+           differentElements++;
+       }
+        return super.add(integer);
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends Integer> c) {
+        for(Integer i: c){
+            this.add(i);
+        }
+        return this.size() != 0;
+
+    }
+
     // TODO Exercise #2 a) Override add() and addAll() methods so that the list should retain the number of
     // TODO Exercise #2 a) different elements (Hint: check out the methods signatures on the List documentation)
 
@@ -52,10 +72,41 @@ public class MyList<Integer> extends ArrayList<Integer> {
     // TODO Exercise #2 b) hint: you need to update the number of different elements only when
     // TODO Exercise #2 b) the element that needs to be removed is the last element of its kind in the list
 
-    // TODO Exercise #2 c) Override the clear method and reset the number of different elements
 
     // TODO Exercise #2 d) Return the number of different elements that exist into the list
     public int getDifferentElements() {
-        return 0;
+        return differentElements;
+    }
+
+
+    @Override
+    public Integer remove(int index) {
+        Integer oldValue = get(index);
+        if(Collections.frequency(this,oldValue)==1){
+            differentElements--;
+        }
+        return super.remove(index);
+    }
+
+    @Override
+    public void clear() {
+        differentElements = 0;
+        super.clear();
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        if(Collections.frequency(this,o)==1){
+            differentElements--;
+        }
+        return super.remove(o);
+    }
+
+    @Override
+    public void add(int index, Integer element) {
+        if(!this.contains(element)){
+            differentElements++;
+        }
+        super.add(index, element);
     }
 }
