@@ -109,4 +109,20 @@ public class MyList<Integer> extends ArrayList<Integer> {
         }
         super.add(index, element);
     }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends Integer> c) {
+        for (Integer i:c){
+            boolean same = false;
+            for(Integer j: this){
+                if(i==j){
+                    same = true;
+                }
+            }
+            if(same==false){
+                differentElements++;
+            }
+        }
+        return super.addAll(index, c);
+    }
 }

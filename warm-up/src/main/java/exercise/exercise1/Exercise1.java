@@ -36,10 +36,8 @@ public class Exercise1 {
         int min = 32000;
         int max = -32000;
         while (iterator.hasNext()) {
-            System.out.println("intra");
             Integer integer = iterator.next();
             sum = sum + integer;
-            System.out.println(sum);
             if (integer < min) {
                 min = integer;
             }
