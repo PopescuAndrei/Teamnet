@@ -48,22 +48,22 @@ public class QueryBuilderTest {
         QueryBuilder builder = new QueryBuilder();
         List<Condition> conditions = new ArrayList<Condition>();
         Condition c = new Condition();
-        c.setColumnName("job_id");
+        c.setColumnName("location_id");
         c.setValue("1");
         Condition c2 = new Condition();
-        c2.setColumnName("min_salary");
-        c2.setValue(200);
+        c2.setColumnName("city");
+        c2.setValue("city");
         conditions.add(c);
         conditions.add(c2);
         List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
         ColumnInfo cInfo = new ColumnInfo();
-        cInfo.setDbName("job_title");
+        cInfo.setDbName("location_id");
         ColumnInfo cInfo2 = new ColumnInfo();
-        cInfo2.setDbName("min_salary");
+        cInfo2.setDbName("city");
         columns.add(cInfo);
         columns.add(cInfo2);
-        Object title = new String("jobs");
-        System.out.println(builder.createInsertQuery(title, columns, conditions));
+        Object title = new String("locations");
+        System.out.println(builder.createInsertQuery(title, columns,conditions));
         System.out.println();
     }
 
@@ -74,18 +74,11 @@ public class QueryBuilderTest {
         Condition c = new Condition();
         c.setColumnName("job_id");
         c.setValue("1");
-        Condition c2 = new Condition();
-        c2.setColumnName("min_salary");
-        c2.setValue(200);
         conditions.add(c);
-        conditions.add(c2);
         List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
         ColumnInfo cInfo = new ColumnInfo();
         cInfo.setDbName("job_title");
-        ColumnInfo cInfo2 = new ColumnInfo();
-        cInfo2.setDbName("min_salary");
         columns.add(cInfo);
-        columns.add(cInfo2);
         Object title = new String("jobs");
         System.out.println(builder.createDeleteQuery(title, conditions));
         System.out.println();

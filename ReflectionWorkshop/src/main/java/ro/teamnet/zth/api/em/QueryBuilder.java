@@ -47,7 +47,7 @@ public class QueryBuilder {
 
     public String createDeleteQuery(Object tableName, List<Condition> conditions) {
         StringBuilder sB = new StringBuilder();
-        sB.append("DELETE FROM " + tableName.toString() + "\nWHERE ");
+        sB.append("DELETE FROM " + tableName.toString() + " WHERE ");
         if (conditions.size() > 1) {
             for (int i = 0; i < conditions.size(); i++) {
                 if (i == conditions.size() - 1) {
@@ -76,43 +76,53 @@ public class QueryBuilder {
             }
             sB.append(")");
         }
-        sB.append("\nVALUES (");
+        sB.append(" VALUES (");
         if (conditions != null) {
             for (int i = 0; i < conditions.size(); i++) {
                 Condition c = conditions.get(i);
                 if (i != conditions.size() - 1) {
-                    sB.append(c.getValue() + ", ");
+                    if (c.getValue() instanceof String)
+                        sB.append("'" + c.getValue() + "', ");
+                    else {
+                        sB.append(c.getValue() + ", ");
+                    }
                 } else {
-                    sB.append(c.getValue() + ")");
+                    if (c.getValue() instanceof String)
+                        sB.append("'" + c.getValue() + "') ");
+                    else {
+                        sB.append(c.getValue() + ") ");
+                    }
                 }
             }
         }
-
+        System.out.println("---------------" + sB.toString());
         return sB.toString();
     }
 
     public String createUpdateQuery(Object tableName, List<ColumnInfo> queryColumns, List<Condition> conditions) {
         StringBuilder sB = new StringBuilder();
-        sB.append("UPDATE " + tableName.toString() + "\nSET ");
+        sB.append("UPDATE " + tableName.toString() + " SET ");
+        queryColumns.remove(0);
         if (queryColumns != null) {
             for (int i = 0; i < queryColumns.size(); i++) {
                 if (i < queryColumns.size() - 1)
-                    sB.append(queryColumns.get(i).getDbName() + " = " + queryColumns.get(i).getValue() + ", ");
-                else
-                    sB.append(queryColumns.get(i).getDbName() + " = " + queryColumns.get(i).getValue());
-            }
-        }
-        if (conditions != null) {
-            sB.append("\nWHERE ");
-            for (int i = 0; i < conditions.size(); i++) {
-                Condition c = conditions.get(i);
-                if (i != conditions.size() - 1) {
-                    sB.append(c.getColumnName() + " = " + c.getValue() + " AND ");
+                    if (queryColumns.get(i).getValue() instanceof String) {
+                        sB.append(queryColumns.get(i).getDbName() + " = '" + queryColumns.get(i).getValue() + "', ");
+                    } else {
+                        sB.append(queryColumns.get(i).getDbName() + " = " + queryColumns.get(i).getValue() + ", ");
+                    }
+                else if (queryColumns.get(i).getValue() instanceof String) {
+                    sB.append(queryColumns.get(i).getDbName() + " = '" + queryColumns.get(i).getValue() + "'");
                 } else {
-                    sB.append(c.getColumnName() + " = " + c.getValue());
+                    sB.append(queryColumns.get(i).getDbName() + " = " + queryColumns.get(i).getValue());
                 }
             }
         }
+        if (conditions != null) {
+            sB.append(" WHERE " + conditions.get(0).getColumnName() + " = " + conditions.get(0).getValue());
+            }
+
+        System.out.println("---------------" + sB.toString());
         return sB.toString();
     }
 
@@ -131,7 +141,7 @@ public class QueryBuilder {
         }
         sB.append(" FROM " + tableName.toString());
         if (conditions != null) {
-            sB.append("\nWHERE ");
+            sB.append(" WHERE ");
             for (int i = 0; i < conditions.size(); i++) {
                 Condition c = conditions.get(i);
                 if (i != conditions.size() - 1) {

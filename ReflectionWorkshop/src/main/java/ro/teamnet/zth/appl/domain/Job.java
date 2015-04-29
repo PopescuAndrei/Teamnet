@@ -19,12 +19,6 @@ public class Job {
     @Column(name = "max_salary")
     private int maxSalary;
 
-    public Job(int jobId, String jobTitle, int minSalary, int maxSalary) {
-        this.jobId = jobId;
-        this.jobTitle = jobTitle;
-        this.minSalary = minSalary;
-        this.maxSalary = maxSalary;
-    }
 
     public int getJobId() {
         return jobId;

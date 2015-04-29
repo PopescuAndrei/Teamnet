@@ -34,19 +34,7 @@ public class Employee {
     @Column(name = "department_id")
     private int departmentId;
 
-    public Employee(int employeeId, String firstName, String lastName, String email, String phoneNumber, Date hireDate, int job_id, double salary, double commissionPct, int managerId, int departmentId) {
-        this.employeeId = employeeId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.hireDate = hireDate;
-        this.job_id = job_id;
-        this.salary = salary;
-        this.commissionPct = commissionPct;
-        this.managerId = managerId;
-        this.departmentId = departmentId;
-    }
+
 
     public int getEmployeeId() {
         return employeeId;

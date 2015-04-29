@@ -20,12 +20,7 @@ public class Location {
     @Column(name = "state_province")
     private String stateProvince;
 
-    public Location(int id, String address, String postalCode, String city, String stateProvince) {
-        this.id = id;
-        this.address = address;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.stateProvince = stateProvince;
+    public Location() {
     }
 
     public int getId() {

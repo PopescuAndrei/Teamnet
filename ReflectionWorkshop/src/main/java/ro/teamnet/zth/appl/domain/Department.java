@@ -19,12 +19,6 @@ public class Department {
     public Department() {
     }
 
-    public Department(int id, String departmentName, String location) {
-        this.id = id;
-        this.departmentName = departmentName;
-        this.location = location;
-    }
-
     public int getId() {
         return id;
     }
