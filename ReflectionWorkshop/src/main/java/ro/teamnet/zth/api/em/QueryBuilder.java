@@ -69,6 +69,8 @@ public class QueryBuilder {
         sB.append("INSERT INTO " + tableName.toString() + " (");
         if (queryColumns != null) {
             for (int i = 0; i < queryColumns.size(); i++) {
+                if(queryColumns.get(i).isId())
+                    continue;
                 if (i < queryColumns.size() - 1)
                     sB.append(queryColumns.get(i).getDbName() + ", ");
                 else
@@ -80,6 +82,8 @@ public class QueryBuilder {
         if (conditions != null) {
             for (int i = 0; i < conditions.size(); i++) {
                 Condition c = conditions.get(i);
+                if(queryColumns.get(i).isId())
+                    continue;
                 if (i != conditions.size() - 1) {
                     if (c.getValue() instanceof String)
                         sB.append("'" + c.getValue() + "', ");

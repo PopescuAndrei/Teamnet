@@ -89,9 +89,10 @@ public class EntityManagerImpl implements EntityManager {
     }
 
     @Override
-    public <T> Object insert(T entity) {
+    public <T> T insert(T entity) {
         Connection conn = DBManager.getConnection();
         T result = null;
+        int id = -1;
         String tableName = EntityUtils.getTableName(entity.getClass());
         List<ColumnInfo> columns = EntityUtils.getColumns(entity.getClass());
         List<Condition> conditions = new ArrayList<Condition>();
@@ -116,11 +117,14 @@ public class EntityManagerImpl implements EntityManager {
         QueryBuilder queryBuilder = new QueryBuilder();
         try (Statement st = conn.createStatement()) {
             st.execute(queryBuilder.createQuery(QueryType.INSERT, tableName, columns, conditions));
-
+            ResultSet rs = st.executeQuery("SELECT LAST_INSERT_ID()");
+            rs.next();
+            id = rs.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+
+        return (T) findById(entity.getClass(),id);
     }
 
 

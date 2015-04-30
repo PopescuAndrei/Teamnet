@@ -14,7 +14,7 @@ public class Department {
     @Column(name = "department_name")
     private String departmentName;
     @Column(name = "location_id")
-    private String location;
+    private int location;
 
     public Department() {
     }
@@ -35,11 +35,11 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    public String getLocation() {
+    public int getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(int location) {
         this.location = location;
     }
 
@@ -51,9 +51,8 @@ public class Department {
         Department that = (Department) o;
 
         if (id != that.id) return false;
-        if (departmentName != null ? !departmentName.equals(that.departmentName) : that.departmentName != null)
-            return false;
-        return !(location != null ? !location.equals(that.location) : that.location != null);
+        if (location != that.location) return false;
+        return !(departmentName != null ? !departmentName.equals(that.departmentName) : that.departmentName != null);
 
     }
 
@@ -61,7 +60,7 @@ public class Department {
     public int hashCode() {
         int result = id;
         result = 31 * result + (departmentName != null ? departmentName.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + location;
         return result;
     }
 
