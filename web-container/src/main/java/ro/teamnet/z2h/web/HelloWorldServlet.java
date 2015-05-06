@@ -10,6 +10,7 @@
 
 package ro.teamnet.z2h.web;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,10 @@ public class HelloWorldServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         resp.getWriter().write("Hello <b>" + req.getParameter("lastname") + " " + req.getParameter("firstname") + "</b>");
-
+        RequestDispatcher requestDispatcher =
+                req.getRequestDispatcher("/hello");
+        req.setAttribute("testAttribute", "Enjoy ZTH!");
+        requestDispatcher.forward(req, resp);
     }
 
     @Override

@@ -7,7 +7,7 @@
 <h2>Hello World!</h2>
 
 <div>
-    <form class="navbar-form navbar-left" name="zerotohero" method="post" action="zerotohero">
+    <form class="navbar-form navbar-left" name="zerotohero" method="post" action="hello">
         <div class="form-group">
             <p>
                 <label for="firstname">First Name:</label>

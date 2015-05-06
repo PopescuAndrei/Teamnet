@@ -14,6 +14,16 @@
         <description>ZeroToHero Servlet</description>
         <servlet-class>ro.teamnet.z2h.web.ZeroToHeroServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HelloWorldForward</servlet-name>
+        <servlet-class>ro.teamnet.z2h.web.HelloWorldServletForward</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>HelloWorldForward</servlet-name>
+        <url-pattern>/helloworldforward</url-pattern>
+    </servlet-mapping>
+
 
     <servlet-mapping>
         <servlet-name>HelloWorld</servlet-name>
